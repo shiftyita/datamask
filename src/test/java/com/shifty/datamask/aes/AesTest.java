@@ -2,7 +2,7 @@ package com.shifty.datamask.aes;
 
 import com.shifty.datamask.algorithm.aes.Aes;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
@@ -28,7 +28,7 @@ class AesTest {
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, is(secret));
+            MatcherAssert.assertThat(secretDecrypted, is(secret));
 
         }
 
@@ -44,7 +44,7 @@ class AesTest {
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, is(secret));
+            MatcherAssert.assertThat(secretDecrypted, is(secret));
             System.out.println("secret length: " + secret.length());
             System.out.println("secretEncrypted length: " + secretEncrypted.length());
 
@@ -62,7 +62,7 @@ class AesTest {
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, is(secret));
+            MatcherAssert.assertThat(secretDecrypted, is(secret));
             System.out.println("secret length: " + secret.length());
             System.out.println("secretEncrypted length: " + secretEncrypted.length());
 

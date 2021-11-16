@@ -2,7 +2,7 @@ package com.shifty.datamask.fpe;
 
 import com.shifty.datamask.algorithm.fpe.FPE;
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
@@ -29,7 +29,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, equalTo(secret));
+            MatcherAssert.assertThat(secretDecrypted, equalTo(secret));
         }
 
         @Test
@@ -44,7 +44,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(secret));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(secret));
         }
 
         @Test
@@ -59,7 +59,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(secret));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(secret));
         }
 
         @Test
@@ -73,7 +73,7 @@ class FPE_ImplTest {
             fpe.useCustomCharset();
             String secretEncrypted = fpe.encryptString(secret);
 
-            Assert.assertThat(secretEncrypted.length(), CoreMatchers.is(secret.length()));
+            MatcherAssert.assertThat(secretEncrypted.length(), CoreMatchers.is(secret.length()));
         }
 
         @Test
@@ -88,7 +88,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(secret));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(secret));
         }
 
         @Test
@@ -103,7 +103,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptEmail(secret);
             String secretDecrypted = fpe.decryptEmail(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(secret));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(secret));
         }
 
         @Test
@@ -118,7 +118,7 @@ class FPE_ImplTest {
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(secret));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(secret));
         }
 
         @Test
@@ -133,7 +133,7 @@ class FPE_ImplTest {
             BigDecimal secretEncrypted = fpe.encryptAmount(new BigDecimal(secret));
             BigDecimal secretDecrypted = fpe.decryptAmount(secretEncrypted);
 
-            Assert.assertThat(secretDecrypted, CoreMatchers.is(new BigDecimal(secret)));
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(new BigDecimal(secret)));
         }
 
         public void printAllAlphaChars() {
