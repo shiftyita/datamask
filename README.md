@@ -70,4 +70,4 @@ The library has been tested with _Apache Maven 3.8.3_ and _JDK 1.8_.
 
 ## License
 
-Read [LICENSE] (LICENSE) attached to the project
+Read [LICENSE.txt] (LICENSE) attached to the project
