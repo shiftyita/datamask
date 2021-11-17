@@ -79,24 +79,41 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>1.0-m5.1</version>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.16.0</version>
                 <configuration>
-                    <flowInitContext>
-                        <masterBranchName>main</masterBranchName>
-                        <developBranchName>develop</developBranchName>
-                        <featureBranchPrefix>feature-</featureBranchPrefix>
-                        <releaseBranchPrefix>release-</releaseBranchPrefix>
-                        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+                    <gitFlowConfig>
+                        <productionBranch>master</productionBranch>
+                        <developmentBranch>develop</developmentBranch>
+                        <featureBranchPrefix>feature/</featureBranchPrefix>
+                        <releaseBranchPrefix>release/</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+                        <supportBranchPrefix>support/</supportBranchPrefix>
                         <versionTagPrefix>version-</versionTagPrefix>
-                    </flowInitContext>
-                    <noDeploy>true</noDeploy>
-                    <squash>true</squash>
-                    <scmCommentPrefix>[RELEASE] </scmCommentPrefix>
-                    <enableSshAgent>true</enableSshAgent>
+                        <origin>origin</origin>
+                    </gitFlowConfig><!-- optional configuration -->
                 </configuration>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>external.atlassian.jgitflow</groupId>-->
+            <!--                <artifactId>jgitflow-maven-plugin</artifactId>-->
+            <!--                <version>1.0-m5.1</version>-->
+            <!--                <configuration>-->
+            <!--                    <flowInitContext>-->
+            <!--                        <masterBranchName>main</masterBranchName>-->
+            <!--                        <developBranchName>develop</developBranchName>-->
+            <!--                        <featureBranchPrefix>feature-</featureBranchPrefix>-->
+            <!--                        <releaseBranchPrefix>release-</releaseBranchPrefix>-->
+            <!--                        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>-->
+            <!--                        <versionTagPrefix>version-</versionTagPrefix>-->
+            <!--                    </flowInitContext>-->
+            <!--                    <noDeploy>true</noDeploy>-->
+            <!--                    <squash>true</squash>-->
+            <!--                    <scmCommentPrefix>[RELEASE] </scmCommentPrefix>-->
+            <!--                    <enableSshAgent>true</enableSshAgent>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
