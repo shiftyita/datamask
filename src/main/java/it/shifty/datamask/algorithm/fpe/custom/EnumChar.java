@@ -1,4 +1,4 @@
-package com.shifty.datamask.algorithm.fpe.custom;
+package it.shifty.datamask.algorithm.fpe.custom;
 
 public enum EnumChar {
 

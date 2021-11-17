@@ -1,10 +1,10 @@
-package com.shifty.datamask.algorithm.fpe;
+package it.shifty.datamask.algorithm.fpe;
 
 import com.idealista.fpe.FormatPreservingEncryption;
 import com.idealista.fpe.builder.FormatPreservingEncryptionBuilder;
 import com.idealista.fpe.config.GenericDomain;
 import com.idealista.fpe.config.GenericTransformations;
-import com.shifty.datamask.algorithm.fpe.custom.*;
+import it.shifty.datamask.algorithm.fpe.custom.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;

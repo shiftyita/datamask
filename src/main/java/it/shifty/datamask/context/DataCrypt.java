@@ -1,4 +1,4 @@
-package com.shifty.datamask.context;
+package it.shifty.datamask.context;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
