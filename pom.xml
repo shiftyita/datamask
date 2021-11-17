@@ -94,6 +94,7 @@
                     <noDeploy>true</noDeploy>
                     <squash>true</squash>
                     <scmCommentPrefix>[RELEASE] </scmCommentPrefix>
+                    <enableSshAgent>true</enableSshAgent>
                 </configuration>
             </plugin>
         </plugins>
