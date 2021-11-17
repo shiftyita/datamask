@@ -51,8 +51,8 @@ public class Amounts {
 @Bean
 public Pseudonymize pseudonymize(String IV,String SECRET)
         throws NoSuchPaddingException,UnsupportedEncodingException,NoSuchAlgorithmException{
-        return new Pseudonymize(IV,SECRET);
-        }
+    return new Pseudonymize(IV,SECRET);
+}
 ```
 
 3) In order to crypt (or decrypt) our Entity, we pass its reference.
