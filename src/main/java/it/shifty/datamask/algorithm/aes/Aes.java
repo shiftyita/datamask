@@ -1,4 +1,4 @@
-package com.shifty.datamask.algorithm.aes;
+package it.shifty.datamask.algorithm.aes;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
