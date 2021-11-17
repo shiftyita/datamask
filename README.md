@@ -61,7 +61,7 @@ public Pseudonymize pseudonymize(String IV,String SECRET)
 //crypt
 pseudonymize.cryptClass(entity);
 //decrypt
-        pseudonymize.decryptClass(entity);
+pseudonymize.decryptClass(entity);
 ```
 
 ## Requirements
