@@ -1,6 +1,6 @@
-package com.shifty.datamask.aes;
+package it.shifty.datamask.aes;
 
-import com.shifty.datamask.algorithm.aes.Aes;
+import it.shifty.datamask.algorithm.aes.Aes;
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayNameGeneration;

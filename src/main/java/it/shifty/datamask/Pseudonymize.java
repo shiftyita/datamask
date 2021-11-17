@@ -1,9 +1,9 @@
-package com.shifty.datamask;
+package it.shifty.datamask;
 
-import com.shifty.datamask.algorithm.aes.Aes;
-import com.shifty.datamask.algorithm.fpe.FPE;
-import com.shifty.datamask.algorithm.fpe.custom.EnumChar;
-import com.shifty.datamask.context.DataCrypt;
+import it.shifty.datamask.algorithm.aes.Aes;
+import it.shifty.datamask.algorithm.fpe.FPE;
+import it.shifty.datamask.algorithm.fpe.custom.EnumChar;
+import it.shifty.datamask.context.DataCrypt;
 
 import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;

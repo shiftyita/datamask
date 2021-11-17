@@ -1,6 +1,6 @@
-package com.shifty.datamask.fpe;
+package it.shifty.datamask.fpe;
 
-import com.shifty.datamask.algorithm.fpe.FPE;
+import it.shifty.datamask.algorithm.fpe.FPE;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayNameGeneration;
