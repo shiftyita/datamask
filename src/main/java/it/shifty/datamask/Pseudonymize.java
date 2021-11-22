@@ -17,10 +17,9 @@ public class Pseudonymize {
     private FPE fpe;
     private Aes aes;
 
-    public Pseudonymize(String IV_Key,
-                        String Secret_Key)
+    public Pseudonymize(String Secret_Key, String IV_Key)
             throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        this.fpe = new FPE(IV_Key, Secret_Key);
+        this.fpe = new FPE(Secret_Key, IV_Key);
         this.aes = new Aes(Secret_Key, IV_Key);
     }
 

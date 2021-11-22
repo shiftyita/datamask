@@ -12,16 +12,16 @@ import java.security.SecureRandom;
 
 public class FPE {
 
-  private final String randomKey;
+
   private final String secretKey;
+  private final String randomKey;
   private EnumChar enumChar;
 
   private FormatPreservingEncryption formatPreservingEncryption;
 
-  public FPE(String randomKey,
-      String secretKey) {
-    this.randomKey = randomKey;
+  public FPE(String secretKey, String randomKey) {
     this.secretKey = secretKey;
+    this.randomKey = randomKey;
     useDefault();
   }
 
