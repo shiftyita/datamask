@@ -17,61 +17,60 @@ public class Pseudonymize {
     private FPE fpe;
     private Aes aes;
 
-    public Pseudonymize(String KEY_1,
-                        String KEY_2)
+    public Pseudonymize(String secretKey, String IV_Key)
             throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        this.fpe = new FPE(KEY_1, KEY_2);
-        this.aes = new Aes(KEY_1, KEY_2);
+        this.fpe = new FPE(secretKey, IV_Key);
+        this.aes = new Aes(secretKey, IV_Key);
     }
 
-    public String decryptFieldString(String fieldValue,
+    public String decryptFieldString(String fieldEncryptedValue,
                                      DataCrypt dataCryptInstance) throws Exception {
         String fieldDecrypted = "";
 
         if (dataCryptInstance.dataType().equals(DataCrypt.DataType.DEFAULT_STRING)) {
             if (!fpe.getEnumChar().equals(EnumChar.CUSTOM))
                 fpe.useCustomCharset();
-            fieldDecrypted = fpe.decryptString(fieldValue);
+            fieldDecrypted = fpe.decryptString(fieldEncryptedValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.EMAIL)) {
             if (!fpe.getEnumChar().equals(EnumChar.EMAIL))
                 fpe.useEmailCharset();
-            fieldDecrypted = fpe.decryptEmail(fieldValue);
+            fieldDecrypted = fpe.decryptEmail(fieldEncryptedValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.LONG_STRING)) {
-            fieldDecrypted = aes.decrypt(fieldValue);
+            fieldDecrypted = aes.decrypt(fieldEncryptedValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.PHONE)) {
             if (!fpe.getEnumChar().equals(EnumChar.PHONE))
                 fpe.usePhoneCharset();
-            fieldDecrypted = fpe.decryptString(fieldValue);
+            fieldDecrypted = fpe.decryptString(fieldEncryptedValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.UNICODE)) {
             if (!fpe.getEnumChar().equals(EnumChar.UNICODE))
                 fpe.useUnicodeCharset();
-            fieldDecrypted = fpe.decryptString(fieldValue);
+            fieldDecrypted = fpe.decryptString(fieldEncryptedValue);
         }
         return fieldDecrypted;
     }
 
-    public String encryptFieldString(String fieldValue,
+    public String encryptFieldString(String fieldPlainValue,
                                      DataCrypt dataCryptInstance) throws Exception {
         String fieldEncrypted = "";
 
         if (dataCryptInstance.dataType().equals(DataCrypt.DataType.DEFAULT_STRING)) {
             if (!fpe.getEnumChar().equals(EnumChar.CUSTOM))
                 fpe.useCustomCharset();
-            fieldEncrypted = fpe.encryptString(fieldValue);
+            fieldEncrypted = fpe.encryptString(fieldPlainValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.EMAIL)) {
             if (!fpe.getEnumChar().equals(EnumChar.EMAIL))
                 fpe.useEmailCharset();
-            fieldEncrypted = fpe.encryptEmail(fieldValue);
+            fieldEncrypted = fpe.encryptEmail(fieldPlainValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.LONG_STRING)) {
-            fieldEncrypted = aes.encrypt(fieldValue);
+            fieldEncrypted = aes.encrypt(fieldPlainValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.PHONE)) {
             if (!fpe.getEnumChar().equals(EnumChar.PHONE))
                 fpe.usePhoneCharset();
-            fieldEncrypted = fpe.encryptString(fieldValue);
+            fieldEncrypted = fpe.encryptString(fieldPlainValue);
         } else if (dataCryptInstance.dataType().equals(DataCrypt.DataType.UNICODE)) {
             if (!fpe.getEnumChar().equals(EnumChar.UNICODE))
                 fpe.useUnicodeCharset();
-            fieldEncrypted = fpe.encryptString(fieldValue);
+            fieldEncrypted = fpe.encryptString(fieldPlainValue);
         }
         return fieldEncrypted;
     }

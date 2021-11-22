@@ -8,9 +8,14 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.ValidationException;
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FPE_ImplTest {
 
@@ -20,12 +25,12 @@ class FPE_ImplTest {
 
         @Test
         public void check_decryption() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3214qaa";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3214qaa";
 
             String secret = "abcaefoza";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
 
@@ -34,12 +39,12 @@ class FPE_ImplTest {
 
         @Test
         public void check_decryption_with_spaces() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
             String secret = "LAST day of JUNE";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useCustomCharset();
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
@@ -49,12 +54,12 @@ class FPE_ImplTest {
 
         @Test
         public void check_decryption_with_samechars() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
             String secret = "aaaaaa";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useCustomCharset();
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
@@ -64,12 +69,12 @@ class FPE_ImplTest {
 
         @Test
         public void check_length() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
             String secret = "abcdefghijklmopqrstuvzABCV";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useCustomCharset();
             String secretEncrypted = fpe.encryptString(secret);
 
@@ -78,12 +83,12 @@ class FPE_ImplTest {
 
         @Test
         public void check_decryption_with_alphanum() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
             String secret = "a13caBAZ";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useUnicodeCharset();
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
@@ -92,13 +97,13 @@ class FPE_ImplTest {
         }
 
         @Test
-        public void check_decryption_with_email() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+        public void check_decryption_with_email() throws ValidationException {
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
-            String secret = "massimo.longobardo@gmail.com";
+            String secret = "tarapia.tapioco@unknowmail.com";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useEmailCharset();
             String secretEncrypted = fpe.encryptEmail(secret);
             String secretDecrypted = fpe.decryptEmail(secretEncrypted);
@@ -107,13 +112,44 @@ class FPE_ImplTest {
         }
 
         @Test
+        public void check_email_encrypted_valid_format() throws ValidationException {
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
+
+            String secret = "tarapia.tapioco@unknowmail.com";
+
+            final Pattern VALID_EMAIL_ADDRESS_REGEX =
+                    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+            FPE fpe = new FPE(secretKey, iv_key);
+            fpe.useEmailCharset();
+            String secretEncrypted = fpe.encryptEmail(secret);
+
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(secretEncrypted);
+            MatcherAssert.assertThat(matcher.find(), CoreMatchers.is(true));
+        }
+
+        @Test
+        public void check_email_not_valid() {
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
+
+            String secret = "tarapia.tapioco.unknowmail.com";
+
+            FPE fpe = new FPE(secretKey, iv_key);
+            fpe.useEmailCharset();
+            ValidationException validationException = assertThrows(ValidationException.class, () -> fpe.encryptEmail(secret), "Expected encryptEmail() to throw, but it didn't");
+            assertTrue(validationException.getMessage().contains("does not seem a valid email"));
+        }
+
+        @Test
         public void check_decryption_with_number() {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3ad21414";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
 
             String secret = "123456789";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useNumericCharset();
             String secretEncrypted = fpe.encryptString(secret);
             String secretDecrypted = fpe.decryptString(secretEncrypted);
@@ -123,12 +159,27 @@ class FPE_ImplTest {
 
         @Test
         public void check_decryption_with_decimal() {
-            String key1 = "ssdkF$HUy2A#D%kd";
-            String key2 = "weJiSEvR5yAC5ftB";
+            String iv_key = "ssdkF$HUy2A#D%kd";
+            String secretKey = "weJiSEvR5yAC5ftB";
 
             String secret = "852.91";
 
-            FPE fpe = new FPE(key1, key2);
+            FPE fpe = new FPE(secretKey, iv_key);
+            fpe.useNumericCharset();
+            BigDecimal secretEncrypted = fpe.encryptAmount(new BigDecimal(secret));
+            BigDecimal secretDecrypted = fpe.decryptAmount(secretEncrypted);
+
+            MatcherAssert.assertThat(secretDecrypted, CoreMatchers.is(new BigDecimal(secret)));
+        }
+
+        @Test
+        public void check_decryption_with_decimal_2() {
+            String iv_key = "ssdkF$HUy2A#D%kd";
+            String secretKey = "weJiSEvR5yAC5ftB";
+
+            String secret = "089.001";
+
+            FPE fpe = new FPE(secretKey, iv_key);
             fpe.useNumericCharset();
             BigDecimal secretEncrypted = fpe.encryptAmount(new BigDecimal(secret));
             BigDecimal secretDecrypted = fpe.decryptAmount(secretEncrypted);

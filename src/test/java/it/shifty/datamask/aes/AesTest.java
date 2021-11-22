@@ -19,12 +19,12 @@ class AesTest {
         @Test
         public void check_decryption()
                 throws Exception {
-            String key1 = "12Cd#94qpz!%4/(0";
-            String key2 = "353fwafwg3plofmv";
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secret_key = "353fwafwg3plofmv";
 
             String secret = "this is a phrase to be encryptString";
 
-            Aes aes = new Aes(key1, key2);
+            Aes aes = new Aes(iv_key, secret_key);
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 
@@ -35,12 +35,12 @@ class AesTest {
         @Test
         public void check_length()
                 throws Exception {
-            String key1 = "12Cd#94qpz!%4/(0"; //16 length
-            String key2 = "353fwafwg3plofmv"; //16 length
+            String iv_key = "12Cd#94qpz!%4/(0"; //16 length
+            String secret_key = "353fwafwg3plofmv"; //16 length
 
             String secret = StringUtils.repeat("*", 1);
 
-            Aes aes = new Aes(key1, key2);
+            Aes aes = new Aes(iv_key, secret_key);
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 
@@ -53,12 +53,12 @@ class AesTest {
         @Test
         public void check_length_2()
                 throws Exception {
-            String key1 = StringUtils.repeat("*", 16);
-            String key2 = StringUtils.repeat("*", 16);
+            String iv_key = StringUtils.repeat("*", 16);
+            String secret_key = StringUtils.repeat("*", 16);
 
             String secret = StringUtils.repeat("*", 150);
 
-            Aes aes = new Aes(key1, key2);
+            Aes aes = new Aes(iv_key, secret_key);
             String secretEncrypted = aes.encrypt(secret);
             String secretDecrypted = aes.decrypt(secretEncrypted);
 

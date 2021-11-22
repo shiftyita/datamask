@@ -14,14 +14,14 @@ import java.util.Base64;
 
 public class Aes {
 
-  private IvParameterSpec ivParameterSpec;
+
   private SecretKeySpec secretKeySpec;
+  private IvParameterSpec ivParameterSpec;
   private Cipher cipher;
 
-  public Aes(String SECRET_KEY_1,
-      String SECRET_KEY_2) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
-    ivParameterSpec = new IvParameterSpec(SECRET_KEY_1.getBytes(StandardCharsets.UTF_8));
-    secretKeySpec = new SecretKeySpec(SECRET_KEY_2.getBytes(StandardCharsets.UTF_8), "AES");
+  public Aes(String Secret_Key, String IV_Key) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
+    secretKeySpec = new SecretKeySpec(Secret_Key.getBytes(StandardCharsets.UTF_8), "AES");
+    ivParameterSpec = new IvParameterSpec(IV_Key.getBytes(StandardCharsets.UTF_8));
     cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
   }
 
@@ -29,19 +29,19 @@ public class Aes {
   /**
    * Encrypt the string with this internal algorithm.
    *
-   * @param toBeEncrypt string object to be encryptString.
+   * @param plain string object to be encryptString.
    * @return returns encrypted string.
    * @throws EncryptException
    */
-  public String encrypt(String toBeEncrypt) throws
+  public String encrypt(String plain) throws
       Exception {
     try {
       cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
-      byte[] encryptedValue = cipher.doFinal(toBeEncrypt.getBytes(StandardCharsets.UTF_8));
+      byte[] encryptedValue = cipher.doFinal(plain.getBytes(StandardCharsets.UTF_8));
       byte[] encodedValue = Base64.getEncoder().encode(encryptedValue);
       return new String(encodedValue, StandardCharsets.UTF_8);
     } catch (Exception e) {
-      throw new EncryptException("ENCRYPT EXCEPTION while encrypting " + toBeEncrypt + " - Details: " + e.toString());
+      throw new EncryptException("ENCRYPT EXCEPTION while encrypting " + plain + " - Details: " + e.toString());
     }
   }
 
