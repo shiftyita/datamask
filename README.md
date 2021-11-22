@@ -17,7 +17,11 @@ The encryption (or decryption) is done using java-reflection.
 You can pull it from the central Maven repositories:
 
 ```xml
-
+<dependency>
+  <groupId>it.shifty</groupId>
+  <artifactId>datamask</artifactId>
+  <version>0.1.10</version>
+</dependency>
 ```
 
 ## Example Usage
