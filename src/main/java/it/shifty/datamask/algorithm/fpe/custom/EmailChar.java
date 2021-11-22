@@ -12,10 +12,12 @@ public class EmailChar implements Alphabet {
   public EmailChar() {
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }
