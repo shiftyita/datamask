@@ -8,11 +8,14 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.ValidationException;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FPE_ImplTest {
 
@@ -94,7 +97,7 @@ class FPE_ImplTest {
         }
 
         @Test
-        public void check_decryption_with_email() {
+        public void check_decryption_with_email() throws ValidationException {
             String iv_key = "12Cd#94qpz!%4/(0";
             String secretKey = "353fwafwg3ad21414";
 
@@ -109,7 +112,7 @@ class FPE_ImplTest {
         }
 
         @Test
-        public void check_email_encrypted_valid_format() {
+        public void check_email_encrypted_valid_format() throws ValidationException {
             String iv_key = "12Cd#94qpz!%4/(0";
             String secretKey = "353fwafwg3ad21414";
 
@@ -124,6 +127,19 @@ class FPE_ImplTest {
 
             Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(secretEncrypted);
             MatcherAssert.assertThat(matcher.find(), CoreMatchers.is(true));
+        }
+
+        @Test
+        public void check_email_not_valid() {
+            String iv_key = "12Cd#94qpz!%4/(0";
+            String secretKey = "353fwafwg3ad21414";
+
+            String secret = "tarapia.tapioco.unknowmail.com";
+
+            FPE fpe = new FPE(secretKey, iv_key);
+            fpe.useEmailCharset();
+            ValidationException validationException = assertThrows(ValidationException.class, () -> fpe.encryptEmail(secret), "Expected encryptEmail() to throw, but it didn't");
+            assertTrue(validationException.getMessage().contains("does not seem a valid email"));
         }
 
         @Test

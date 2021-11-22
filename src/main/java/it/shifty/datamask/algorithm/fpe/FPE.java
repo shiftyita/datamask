@@ -5,8 +5,10 @@ import com.idealista.fpe.builder.FormatPreservingEncryptionBuilder;
 import com.idealista.fpe.config.GenericDomain;
 import com.idealista.fpe.config.GenericTransformations;
 import it.shifty.datamask.algorithm.fpe.custom.*;
+import it.shifty.datamask.validate.ValidateInput;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.xml.bind.ValidationException;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 
@@ -126,7 +128,8 @@ public class FPE {
     return Integer.valueOf(formatPreservingEncryption.decrypt(integer.toString(), secretKey.getBytes()));
   }
 
-  public String encryptEmail(String emailToEncrypt) {
+  public String encryptEmail(String emailToEncrypt) throws ValidationException {
+    ValidateInput.validateEmail(emailToEncrypt);
     return encryptPart(emailToEncrypt.split("@")[0]) + "@" + encryptPart(emailToEncrypt.split("@")[1]);
   }
 
