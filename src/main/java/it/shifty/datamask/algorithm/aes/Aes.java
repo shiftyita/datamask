@@ -1,15 +1,14 @@
 package it.shifty.datamask.algorithm.aes;
 
-import javax.crypto.BadPaddingException;
+import it.shifty.datamask.exception.DecryptException;
+import it.shifty.datamask.exception.EncryptException;
+
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
@@ -32,10 +31,7 @@ public class Aes {
    *
    * @param toBeEncrypt string object to be encryptString.
    * @return returns encrypted string.
-   * @throws InvalidAlgorithmParameterException
-   * @throws InvalidKeyException
-   * @throws BadPaddingException
-   * @throws IllegalBlockSizeException
+   * @throws EncryptException
    */
   public String encrypt(String toBeEncrypt) throws
       Exception {
@@ -45,7 +41,7 @@ public class Aes {
       byte[] encodedValue = Base64.getEncoder().encode(encryptedValue);
       return new String(encodedValue, StandardCharsets.UTF_8);
     } catch (Exception e) {
-      throw new Exception("ENCRYPT EXCEPTION while encrypting " + toBeEncrypt + " - Details: " + e.toString());
+      throw new EncryptException("ENCRYPT EXCEPTION while encrypting " + toBeEncrypt + " - Details: " + e.toString());
     }
   }
 
@@ -55,10 +51,7 @@ public class Aes {
    *
    * @param encrypted encrypted string that was encrypted using {@link #encrypt(String) encryptString} method.
    * @return decrypted string.
-   * @throws InvalidAlgorithmParameterException
-   * @throws InvalidKeyException
-   * @throws BadPaddingException
-   * @throws IllegalBlockSizeException
+   * @throws DecryptException
    */
   public String decrypt(String encrypted) throws Exception {
     try {
@@ -67,8 +60,7 @@ public class Aes {
       byte[] decryptedValue = cipher.doFinal(decodedValue);
       return new String(decryptedValue, StandardCharsets.UTF_8);
     } catch (Exception e) {
-      throw new Exception("DECRYPT EXCEPTION while decrypt " + encrypted + " - Details: " + e.toString());
+      throw new DecryptException("DECRYPT EXCEPTION while decrypt " + encrypted + " - Details: " + e.toString());
     }
-
   }
 }
