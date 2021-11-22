@@ -9,10 +9,12 @@ public class CustomChar implements Alphabet {
   public CustomChar() {
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }

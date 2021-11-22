@@ -8,7 +8,7 @@ import it.shifty.datamask.algorithm.fpe.custom.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class FPE {
 
@@ -152,7 +152,7 @@ public class FPE {
     final String num = "123456789";
     final int N = num.length();
 
-    Random random = new Random();
+    SecureRandom random = new SecureRandom();
     return num.charAt(random.nextInt(N));
   }
 
