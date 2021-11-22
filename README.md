@@ -49,9 +49,9 @@ public class Amounts {
 
 ```java
 @Bean
-public Pseudonymize pseudonymize(String IV,String SECRET)
+public Pseudonymize pseudonymize(String SECRET,String IV)
         throws NoSuchPaddingException,UnsupportedEncodingException,NoSuchAlgorithmException{
-    return new Pseudonymize(IV,SECRET);
+    return new Pseudonymize(SECRET,IV);
 }
 ```
 
