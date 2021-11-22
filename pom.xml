@@ -4,7 +4,7 @@
 
     <groupId>it.shifty</groupId>
     <artifactId>datamask</artifactId>
-    <version>0.1.9-SNAPSHOT</version>
+    <version>0.1.9</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A library to pseudonymize data while keeping data format</description>
@@ -26,7 +26,8 @@
         <connection>scm:git:git://github.com/shiftyita/datamask.git</connection>
         <developerConnection>scm:git:ssh://github.com:shiftyita/datamask.git</developerConnection>
         <url>https://github.com/shiftyita/datamask</url>
-    </scm>
+      <tag>datamask-0.1.9</tag>
+  </scm>
 
     <distributionManagement>
         <snapshotRepository>
