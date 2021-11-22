@@ -12,16 +12,16 @@ import java.security.SecureRandom;
 
 public class FPE {
 
-  private final String KEY_1;
-  private final String KEY_2;
+  private final String randomKey;
+  private final String secretKey;
   private EnumChar enumChar;
 
   private FormatPreservingEncryption formatPreservingEncryption;
 
-  public FPE(String KEY_1,
-      String KEY_2) {
-    this.KEY_1 = KEY_1;
-    this.KEY_2 = KEY_2;
+  public FPE(String randomKey,
+      String secretKey) {
+    this.randomKey = randomKey;
+    this.secretKey = secretKey;
     useDefault();
   }
 
@@ -29,7 +29,7 @@ public class FPE {
     formatPreservingEncryption = FormatPreservingEncryptionBuilder
         .ff1Implementation()
         .withDefaultDomain()
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.DEFAULT;
@@ -41,7 +41,7 @@ public class FPE {
         .ff1Implementation()
         .withDomain(new GenericDomain(customChar, new GenericTransformations(customChar.availableCharacters()), new GenericTransformations(
             customChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.CUSTOM;
@@ -52,7 +52,7 @@ public class FPE {
     formatPreservingEncryption = FormatPreservingEncryptionBuilder
         .ff1Implementation()
         .withDomain(new GenericDomain(alphaNumericChar, new GenericTransformations(alphaNumericChar.availableCharacters()), new GenericTransformations(alphaNumericChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.ALPHANUMERIC;
@@ -65,7 +65,7 @@ public class FPE {
         .withDomain(new GenericDomain(
             emailChar, new GenericTransformations(emailChar.availableCharacters()), new GenericTransformations(
             emailChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.EMAIL;
@@ -78,7 +78,7 @@ public class FPE {
         .withDomain(new GenericDomain(
             unicodeChar, new GenericTransformations(unicodeChar.availableCharacters()), new GenericTransformations(
             unicodeChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.UNICODE;
@@ -91,7 +91,7 @@ public class FPE {
         .withDomain(new GenericDomain(
             numericChar, new GenericTransformations(numericChar.availableCharacters()), new GenericTransformations(
             numericChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.NUMBER;
@@ -104,26 +104,26 @@ public class FPE {
         .withDomain(new GenericDomain(
             phoneChar, new GenericTransformations(phoneChar.availableCharacters()), new GenericTransformations(
             phoneChar.availableCharacters())))
-        .withDefaultPseudoRandomFunction(KEY_1.getBytes())
+        .withDefaultPseudoRandomFunction(randomKey.getBytes())
         .withDefaultLengthRange()
         .build();
     enumChar = EnumChar.PHONE;
   }
 
   public String encryptString(String stringToEncrypt) {
-    return formatPreservingEncryption.encrypt(stringToEncrypt, KEY_2.getBytes());
+    return formatPreservingEncryption.encrypt(stringToEncrypt, secretKey.getBytes());
   }
 
   public String decryptString(String stringToDecrypt) {
-    return formatPreservingEncryption.decrypt(stringToDecrypt, KEY_2.getBytes());
+    return formatPreservingEncryption.decrypt(stringToDecrypt, secretKey.getBytes());
   }
 
   public Integer encryptInt(Integer integer) {
-    return Integer.valueOf(formatPreservingEncryption.encrypt(integer.toString(), KEY_2.getBytes()));
+    return Integer.valueOf(formatPreservingEncryption.encrypt(integer.toString(), secretKey.getBytes()));
   }
 
   public Integer decryptInt(Integer integer) {
-    return Integer.valueOf(formatPreservingEncryption.decrypt(integer.toString(), KEY_2.getBytes()));
+    return Integer.valueOf(formatPreservingEncryption.decrypt(integer.toString(), secretKey.getBytes()));
   }
 
   public String encryptEmail(String emailToEncrypt) {
