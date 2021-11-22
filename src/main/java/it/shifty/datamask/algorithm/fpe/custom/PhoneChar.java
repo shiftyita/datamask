@@ -9,10 +9,12 @@ public class PhoneChar implements Alphabet {
   public PhoneChar() {
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }

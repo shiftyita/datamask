@@ -9,10 +9,12 @@ public class NumericChar implements Alphabet {
   public NumericChar() {
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }

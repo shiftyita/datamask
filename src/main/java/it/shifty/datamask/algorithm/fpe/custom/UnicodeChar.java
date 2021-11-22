@@ -9,10 +9,12 @@ public class UnicodeChar implements Alphabet {
     initialize();
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }

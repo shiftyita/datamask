@@ -13,10 +13,12 @@ public class AlphaNumericChar implements Alphabet {
   public AlphaNumericChar() {
   }
 
+  @Override
   public char[] availableCharacters() {
     return CHARS;
   }
 
+  @Override
   public Integer radix() {
     return CHARS.length;
   }
